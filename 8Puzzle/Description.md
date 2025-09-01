@@ -7,5 +7,7 @@ The 8 Puzzle is a classic game in a 3x3 grid. Each square in the grid has a numb
 ## Credits
 
 José Guerra Rodríguez: C33510
+
 Jerson Bonilla Fernández: C31225
+
 Jose Raúl Martínez Quesada: C34637
