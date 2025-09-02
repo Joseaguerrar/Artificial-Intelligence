@@ -14,12 +14,12 @@ end procedure
 // RequestProcessor.execute
 procedure execute(matrix):
   declare startTime := getStartTime()
-  8PuzzleSolver.solve(matrix)
+  8PuzzleSolver.work(matrix)
   declare endTime := getEndTime()
   return endTime - startTime
 end procedure
 
-// BFS, GBFS, IDS, IDSH solve
-procedure solve(matrix)
+// BFS, GBFS, IDS, IDSH work
+procedure work(matrix)
   // ...
 end procedure
