@@ -2,4 +2,7 @@
 
 ## Procedural design
 
+[source,pseudo]
+----
 include::8puzzle.pseudo[]
+----
