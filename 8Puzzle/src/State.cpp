@@ -1,26 +1,17 @@
 #include "State.hpp"
 #include <algorithm>
 
-State::State()
-    : board(3, std::vector<int>(3, 0)), emptyRow(2), emptyColumn(2) {}
+const std::vector<std::vector<int>> State::GOAL = {
+    {1, 2, 3}, {4, 5, 6}, {7, 8, 0}};
+
+State::State() : board(GOAL) { locateZero(); }
 
 State::State(const std::vector<std::vector<int>> &initialBoard)
     : board(initialBoard) {
-  // Looks for the space where the empty space is located in the given board.
-  for (int r = 0; r < ROWS_NUMBER; r++) {
-    for (int c = 0; c < COLUMNS_NUMBER; c++) {
-      if (board[r][c] == 0) {
-        emptyRow = r;
-        emptyColumn = c;
-      }
-    }
-  }
+  locateZero();
 }
 
-bool State::isGoal() const {
-  std::vector<std::vector<int>> goal = {{0, 1, 2}, {3, 4, 5}, {6, 7, 8}};
-  return board == goal;
-}
+bool State::isGoal() const { return board == State::GOAL; }
 
 std::string State::toString() const {
   std::string boardAsString;
@@ -66,7 +57,7 @@ std::vector<State> State::getNeighbors() const {
 
 State State::randomState(int steps) {
   // Goal state.
-  State current({{0, 1, 2}, {3, 4, 5}, {6, 7, 8}});
+  State current(State::GOAL);
 
   std::random_device rd;
   std::mt19937 gen(rd());
@@ -79,4 +70,28 @@ State State::randomState(int steps) {
   }
 
   return current;
+}
+
+void State::locateZero() {
+  for (int r = 0; r < ROWS_NUMBER; r++) {
+    for (int c = 0; c < COLUMNS_NUMBER; c++) {
+      if (board[r][c] == 0) {
+        emptyRow = r;
+        emptyColumn = c;
+        return;
+      }
+    }
+  }
+}
+
+std::string State::key() const {
+  std::string boardKey;
+  boardKey.reserve(9); // Save 9 spaces
+  for (auto &row : board) {
+    for (int value : row) {
+      // Convert to char.
+      boardKey.push_back(char('0' + value));
+    }
+  }
+  return boardKey;
 }

@@ -13,6 +13,9 @@ public:
   /// from 0-8.
   std::vector<std::vector<int>> board;
 
+  /// @brief Represents the classic goal state in this game.
+  static const std::vector<std::vector<int>> GOAL;
+
   /// @brief The row where the empty space is located (0).
   int emptyRow;
 
@@ -42,4 +45,13 @@ public:
   /// @param steps Number of iterations in order to randomize.
   /// @return A random state.
   State randomState(int steps = 20);
+
+  /// @brief Turn a board state to its unique key (a sequence of its numbers).
+  /// This allows to distinguish each board and avoid cycles.
+  /// @return The board as a key.
+  std::string key() const;
+
+private:
+  /// @brief Find where the empty space (zero) is located in the board.
+  void locateZero();
 };
