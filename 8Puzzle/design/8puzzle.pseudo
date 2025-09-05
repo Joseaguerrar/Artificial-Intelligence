@@ -1,0 +1,25 @@
+// RequestProcessor.run
+procedure run():
+  // After creating the initial conditions, this procedure executes each
+  // processor and stores its response.
+  declare totalTimes[] := {0.0, 0.0, 0.0, 0.0}
+  for iteration := 0 to iterationsCount:
+    declare, create matrix := initialConditions()
+    for processor := 0 to processorsCount:
+      totalTimes[processor] += (processors[processor].execute(matrix))
+    end for
+  end for
+end procedure
+
+// RequestProcessor.execute
+procedure execute(matrix):
+  declare startTime := getStartTime()
+  8PuzzleSolver.work(matrix)
+  declare endTime := getEndTime()
+  return endTime - startTime
+end procedure
+
+// BFS, GBFS, IDS, IDSH work
+procedure work(matrix)
+  // ...
+end procedure

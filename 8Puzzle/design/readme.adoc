@@ -1,0 +1,13 @@
+# Design
+
+## Data Flow Diagram
+
+image::img/design-8-puzzle-problem-program.svg[]
+
+## Procedural design
+Pseudocode for the main procedures that will be implemented. For this program to work, each of the BFS, GBFS, IDS, IDSH objects need to override/redefine the work procedure.
+
+[source,pseudo]
+----
+include::8puzzle.pseudo[]
+----
