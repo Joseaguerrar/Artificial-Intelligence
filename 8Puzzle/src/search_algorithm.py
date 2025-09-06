@@ -9,6 +9,7 @@ Classes:
 """
 
 from abc import ABC, abstractmethod
+import time
 
 class SearchAlgorithm(ABC):
   """
@@ -21,8 +22,8 @@ class SearchAlgorithm(ABC):
     """
     Initialize a SearchAlgorithm instance
     """
-    # Initialize elapsed_times as an empty list
-    pass
+    # Initialize elapsed_times as an empty list.
+    self.elapsed_times = []
 
   def run(self, initial_state):
     """
@@ -30,10 +31,32 @@ class SearchAlgorithm(ABC):
 
     Args:
       initial_state (EightPuzzle): An 8 puzzle with a randomized initial state.
+
+    Returns:
+      (result_node, elapsed_seconds)
     """
     # Record the start and end time when finding the goal state for an 8 puzzle. Afterwards, print
     # the results to a .txt file.
-    pass
+
+    # Measure elapsed time.
+    start = time.perf_counter()
+    result = self.find(initial_state)
+    elapsed = time.perf_counter() - start
+
+    # Add time to list.
+    self.elapsed_times.append(elapsed)
+
+    # Get depth if it exists and add to file.
+    depth = getattr(result, "depth", None)
+    file_name = f"{self._class_._name_}_results.txt"
+    with open(file_name, "a", encoding="utf-8") as f:
+      if depth is not None:
+        f.write(f"time_s={elapsed:.6f}, depth={depth}\n")
+      else:
+        f.write(f"time_s={elapsed:.6f}\n")
+
+    return result, elapsed
+
 
   @abstractmethod
   def find(self, initial_state):
