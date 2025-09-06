@@ -26,7 +26,7 @@ class IterativeDeepeningSearch(SearchAlgorithm):
     Use the iterative deepening search algorithm to find the desired state.
 
     Args:
-      (EightPuzzle): An 8 puzzle with a randomized initial state.
+      initial_state (EightPuzzle): An 8 puzzle with a randomized initial state.
 
     Note:
       Implementation of the base class abstract method.
