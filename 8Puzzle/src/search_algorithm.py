@@ -6,4 +6,5 @@ class SearchAlgorithm(ABC):
   def run(self):
 
   @abstractmethod
-  def solve(initial_state):
+  def solve(self, initial_state):
+    pass
