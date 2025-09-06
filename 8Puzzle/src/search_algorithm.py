@@ -4,7 +4,7 @@ search_algorithm.py
 This module provides an abstract-base class for search algorithms.
 
 Classes:
-    SearchAlgorithm: Represents a search algorithm, which will be used to solve an 8 puzzle.
+  SearchAlgorithm: Represents a search algorithm, which will be used to solve an 8 puzzle.
 
 """
 
@@ -39,6 +39,9 @@ class SearchAlgorithm(ABC):
   def find(self, initial_state):
     """
     Use a search algorithm to find the desired state.
+
+    Args:
+      initial_state (EightPuzzle): An 8 puzzle with a randomized initial state.
 
     Note:
       This method must be implemented by concrete subclasses.
