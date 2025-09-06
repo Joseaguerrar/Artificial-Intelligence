@@ -48,7 +48,7 @@ class SearchAlgorithm(ABC):
 
     # Get depth if it exists and add to file.
     depth = getattr(result, "depth", None)
-    file_name = f"{self._class_._name_}_results.txt"
+    file_name = f"{self.__class__.__name__}_results.txt"
     with open(file_name, "a", encoding="utf-8") as f:
       if depth is not None:
         f.write(f"time_s={elapsed:.6f}, depth={depth}\n")
