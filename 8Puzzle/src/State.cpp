@@ -65,7 +65,7 @@ State State::randomState(int steps) {
   for (int i = 0; i < steps; i++) {
     // Get neighbors from the goal state.
     auto neighbors = current.getNeighbors();
-    std::uniform_int_distribution<int> dist(0, neighbors.size() - 1);
+    std::uniform_int_distribution<int> dist(0, static_cast<int>(neighbors.size()) - 1);
     current = neighbors[dist(gen)]; // Choose a random neighbor.
   }
 
@@ -73,6 +73,9 @@ State State::randomState(int steps) {
 }
 
 void State::locateZero() {
+  emptyRow = -1;
+  emptyColumn = -1;
+
   for (int r = 0; r < ROWS_NUMBER; r++) {
     for (int c = 0; c < COLUMNS_NUMBER; c++) {
       if (board[r][c] == 0) {
