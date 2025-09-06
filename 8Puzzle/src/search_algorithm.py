@@ -36,7 +36,7 @@ class SearchAlgorithm(ABC):
     pass
 
   @abstractmethod
-  def solve(self, initial_state):
+  def find(self, initial_state):
     """
     Use a search algorithm to find the desired state.
 
