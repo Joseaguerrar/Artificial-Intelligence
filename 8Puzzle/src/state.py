@@ -50,7 +50,7 @@ class State:
     for i in range(steps):
       while True:
         state = tuple(random.sample(range(9), 9))
-        if is_solvable(state):
+        if self.is_solvable(state):
           return state
   
   def is_solvable(self, state):
