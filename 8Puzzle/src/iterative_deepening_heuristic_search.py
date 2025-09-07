@@ -8,7 +8,9 @@ Classes:
   which will be used to solve an 8 puzzle.
 """
 
+from search import memoize, Node
 from search_algorithm import SearchAlgorithm
+import numpy as np
 
 class IterativeDeepeningHeuristicSearch(SearchAlgorithm):
   """
@@ -32,3 +34,37 @@ class IterativeDeepeningHeuristicSearch(SearchAlgorithm):
       Implementation of the base class abstract method.
     """
     pass
+
+  def _iterative_deepening_astar_search(problem, h=None):
+    """
+    Iterative Deepening A* (IDA*): depth-first contours with f = g + h threshold.
+
+    Args:
+      problem (EightPuzzle): An 8 puzzle with a randomized initial state.
+      h (func): Heuristic function
+
+    Returns:
+      Goal Node or None if an unsolvable initial state was entered.
+    
+    Note:
+      Generated with the assistance of ChatGPT
+    """
+    h = memoize(h or problem.h, 'h')
+    start = Node(problem.initial)
+    # Initial threshold used as a bound in the depth first search.
+    threshold = h(start)
+
+    while True:
+      # Expand one contour at a time. In the IDS A* algorithm, a contour is a bounded depth first
+      # search that is bounded by an f-cost threshold, where f = g + h (g is the cost so far, and h
+      # the heuristic estimate). If no result is found, increase the threshold.
+      next_threshold, result = _ida_contour(problem, start, g=0, threshold=threshold, h=h,
+                                            path_states={start.state})
+      if result is not None:
+          break
+      # In case an unsolvable initial state is received.
+      if next_threshold == np.inf:
+          result = None
+          break
+      threshold = next_threshold
+    return result
