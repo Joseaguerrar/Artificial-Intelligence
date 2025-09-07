@@ -42,7 +42,7 @@ class EightPuzzleSolver():
       initial_state = State()
       initial_state.generate_solvable_random_state()
       for search_algorithm in self.search_algorithms:
-        search_algorithm.run(initial_state)
+          search_algorithm.run(initial_state)
     self.write_average_statistics()
   
   def write_average_statistics(self):
