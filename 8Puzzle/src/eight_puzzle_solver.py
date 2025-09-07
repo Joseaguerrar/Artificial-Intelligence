@@ -47,8 +47,8 @@ class EightPuzzleSolver(SearchAlgorithm):
   
   def write_average_statistics(self):
     """
-    Write average execution time and memory usage statistics for each of the registered search
-    algorithms.
+    Write average execution time, memory usage, and depth statistics for each of the registered
+    search algorithms.
     """
     file_name = f"{self.__class__.__name__}_results.txt"
     with open(file_name, "a", encoding="utf-8") as f:
