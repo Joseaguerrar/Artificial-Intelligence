@@ -9,6 +9,7 @@ Classes:
 """
 
 from search_algorithm import SearchAlgorithm
+from search import greedy_best_first_graph_search
 
 class BreadthFirstHeuristicSearch(SearchAlgorithm):
   """
@@ -31,4 +32,4 @@ class BreadthFirstHeuristicSearch(SearchAlgorithm):
     Note:
       Implementation of the base class abstract method.
     """
-    pass
+    return greedy_best_first_graph_search(initial_state, initial_state.h)
