@@ -55,7 +55,7 @@ class EightPuzzleSolver(SearchAlgorithm):
       for search_algorithm in self.search_algorithms:
         f.write(
           f"average_time_s={sum(
-            search_algorithm.elapsed_times) / self.iterations_count:.6f / 1024}\n")
+            search_algorithm.elapsed_times) / self.iterations_count:.6f}\n")
         f.write(
           f"average_memory_KB={sum(
             search_algorithm.memory_usage_stats) / self.iterations_count / 1024:.6f}\n")
