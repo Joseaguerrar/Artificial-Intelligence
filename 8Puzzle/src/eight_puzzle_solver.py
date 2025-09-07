@@ -43,3 +43,10 @@ class EightPuzzleSolver(SearchAlgorithm):
       initial_state.generate_solvable_random_state()
       for search_algorithm in self.search_algorithms:
         search_algorithm.run(initial_state)
+  
+  def write_average_statistics(self):
+    """
+    Write average execution time and memory usage statistics for each of the registered search
+    algorithms.
+    """
+    pass
