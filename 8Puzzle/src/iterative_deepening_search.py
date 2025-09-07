@@ -9,6 +9,7 @@ Classes:
 """
 
 from search_algorithm import SearchAlgorithm
+from search import iterative_deepening_search
 
 class IterativeDeepeningSearch(SearchAlgorithm):
   """
@@ -31,4 +32,4 @@ class IterativeDeepeningSearch(SearchAlgorithm):
     Note:
       Implementation of the base class abstract method.
     """
-    pass
+    return iterative_deepening_search(initial_state.board)
