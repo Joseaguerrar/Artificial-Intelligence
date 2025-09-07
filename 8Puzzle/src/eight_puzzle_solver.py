@@ -59,4 +59,7 @@ class EightPuzzleSolver(SearchAlgorithm):
         f.write(
           f"average_memory_KB={sum(
             search_algorithm.memory_usage_stats) / self.iterations_count / 1024:.6f}\n")
+        f.write(
+          f"average_depth={sum(
+            search_algorithm.depth_stats) / self.iterations_count:.6f}\n")
 
