@@ -19,7 +19,7 @@ class IterativeDeepeningSearch(SearchAlgorithm):
     Initialize a IterativeDeepeningSearch instance
     """
     # Call the base class constructor
-    pass
+    super().__init__()
 
   def find(self, initial_state):
     """
