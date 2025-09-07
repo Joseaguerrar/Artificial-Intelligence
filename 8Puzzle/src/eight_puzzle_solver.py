@@ -15,6 +15,7 @@ from breadth_first_search import BreadthFirstSearch
 from breadth_first_heuristic_search import BreadthFirstHeuristicSearch
 from iterative_deepening_search import IterativeDeepeningSearch
 from iterative_deepening_heuristic_search import IterativeDeepeningHeuristicSearch
+from itertools import repeat
 
 class EightPuzzleSolver(SearchAlgorithm):
   """
@@ -36,4 +37,9 @@ class EightPuzzleSolver(SearchAlgorithm):
     deepening heuristic search algorithms, to solve an 8 puzzle. After each iteration, record and
     write execution time statistics.
     """
-    pass
+    # Repeat is used, because the value of the index doesn't matter.
+    for _ in repeat(None, self.iterations_count):
+      initial_state = State()
+      initial_state.generate_solvable_random_state()
+      for search_algorithm in self.search_algorithms:
+        search_algorithm.run(initial_state)
