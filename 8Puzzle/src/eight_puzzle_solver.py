@@ -19,7 +19,7 @@ class EightPuzzleSolver(SearchAlgorithm):
     """
     Initialize a EightPuzzleSolver instance
     """
-    pass
+    self.iterations_count = iterations_count
 
   def run(self):
     """
