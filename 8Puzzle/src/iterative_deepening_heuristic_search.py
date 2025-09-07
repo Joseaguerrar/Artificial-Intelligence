@@ -33,7 +33,7 @@ class IterativeDeepeningHeuristicSearch(SearchAlgorithm):
     Note:
       Implementation of the base class abstract method.
     """
-    pass
+    return self._iterative_deepening_astar_search(initial_state)
 
   def _iterative_deepening_astar_search(self, problem, h=None):
     """
