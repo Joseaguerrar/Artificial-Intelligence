@@ -9,6 +9,7 @@ Classes:
 """
 
 from search_algorithm import SearchAlgorithm
+from search import breadth_first_graph_search
 
 class BreadthFirstSearch(SearchAlgorithm):
   """
@@ -19,7 +20,7 @@ class BreadthFirstSearch(SearchAlgorithm):
     Initialize a BreadthFirstSearch instance
     """
     # Call the base class constructor
-    pass
+    super.__init__()
 
   def find(self, initial_state):
     """
@@ -28,7 +29,10 @@ class BreadthFirstSearch(SearchAlgorithm):
     Args:
       initial_state (EightPuzzle): An 8 puzzle with a randomized initial state.
 
+    Returns:
+      node: Node with information about the algorithm's execution.
+
     Note:
       Implementation of the base class abstract method.
     """
-    pass
+    return breadth_first_graph_search(initial_state)
