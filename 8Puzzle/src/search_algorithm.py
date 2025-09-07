@@ -33,9 +33,6 @@ class SearchAlgorithm(ABC):
 
     Args:
       initial_state (EightPuzzle): An 8 puzzle with a randomized initial state.
-
-    Returns:
-      (result_node, elapsed_seconds)
     """
     # Record the start and end time when finding the goal state for an 8 puzzle. Afterwards, print
     # the results to a .txt file.
@@ -61,7 +58,6 @@ class SearchAlgorithm(ABC):
       else:
         f.write(f"time_s={elapsed:.6f}\n")
       f.write(f"memory_KB={current / 1024:.6f}\n")
-    return result, elapsed
 
 
   @abstractmethod
