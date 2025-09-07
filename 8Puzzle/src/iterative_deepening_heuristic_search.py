@@ -47,7 +47,7 @@ class IterativeDeepeningHeuristicSearch(SearchAlgorithm):
       Goal Node or None if an unsolvable initial state was entered.
     
     Note:
-      Generated with the assistance of ChatGPT
+      Implemented with the assistance of ChatGPT
     """
     h = memoize(h or problem.h, 'h')
     start = Node(problem.initial)
@@ -62,13 +62,59 @@ class IterativeDeepeningHeuristicSearch(SearchAlgorithm):
                                                                        threshold=threshold, h=h,
                                                                        path_states={start.state})
       if result is not None:
-          break
+        break
       # In case an unsolvable initial state is received.
       if next_threshold == np.inf:
-          result = None
-          break
+        result = None
+        break
       threshold = next_threshold
     return result
   
   def _iterative_deepening_astar_contour(self, problem, node, g, threshold, h, path_states):
-     
+    """
+    DFS limited by f = g + h <= threshold.
+
+    Args:
+      problem (EightPuzzle): An 8 puzzle with a randomized initial state.
+      node (Node): Node in a search tree.
+      g (int): Cost so far.
+      threshold (int): Threshold used for the depth first search.
+      h (func): Heuristic function.
+      path_states (set): Current path, used to avoid cycles.
+
+    Returns:
+      Tuple containing:
+        - min_excess: smallest f that exceeded the threshold (or np.inf if none).
+        - goal_node or None: a solution node if found.
+    
+    Note:
+      Implemented with the assistance of ChatGPT
+    """
+    # Calculate f-cost threshold. If the f-cost exceeds the threshold, then no solution has been
+    # found. If the goal state has been found, return the goal state.
+    f = g + h(node)
+    if f > threshold:
+      return f, None
+    if problem.goal_test(node.state):
+      return f, node
+    # Set the smallest f to np.inf to indicante that an unsolvable initial state was provided.
+    min_excess = np.inf
+    # Expand children
+    children = list(node.expand(problem))
+    for child in children:
+      if child.state in path_states:  # avoid cycles
+        continue
+      path_states.add(child.state)
+      # Recurse with updated g
+      t, found = self._iterative_deepening_astar_contour(problem, child, child.path_cost, threshold,
+                                                         h, path_states)
+      # Determine if a goal node was found. Otherwise, determine if the current excess is smaller
+      # than the minimum excess so far.
+      if found is not None:
+        return t, found
+      if t < min_excess:
+        min_excess = t
+
+      path_states.remove(child.state)  # backtrack
+    # Return minimum excess over the threshold, and None to indicate no solution.
+    return min_excess, None
