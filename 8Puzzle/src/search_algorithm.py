@@ -26,6 +26,7 @@ class SearchAlgorithm(ABC):
     # Initialize elapsed_times as an empty list.
     self.elapsed_times = []
     self.memory_usage_stats = []
+    self.depth_stats = []
 
   def run(self, initial_state):
     """
