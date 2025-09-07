@@ -20,7 +20,7 @@ class BreadthFirstSearch(SearchAlgorithm):
     Initialize a BreadthFirstSearch instance
     """
     # Call the base class constructor
-    super.__init__()
+    super().__init__()
 
   def find(self, initial_state):
     """
