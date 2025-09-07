@@ -19,7 +19,7 @@ class BreadthFirstHeuristicSearch(SearchAlgorithm):
     Initialize a BreadthFirstHeuristicSearch instance
     """
     # Call the base class constructor
-    pass
+    super.__init__()
 
   def find(self, initial_state):
     """
