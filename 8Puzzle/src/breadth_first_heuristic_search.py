@@ -32,4 +32,4 @@ class BreadthFirstHeuristicSearch(SearchAlgorithm):
     Note:
       Implementation of the base class abstract method.
     """
-    return greedy_best_first_graph_search(initial_state, initial_state.h)
+    return greedy_best_first_graph_search(initial_state.board, initial_state.board.h)

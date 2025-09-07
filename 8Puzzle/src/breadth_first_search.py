@@ -35,4 +35,4 @@ class BreadthFirstSearch(SearchAlgorithm):
     Note:
       Implementation of the base class abstract method.
     """
-    return breadth_first_graph_search(initial_state)
+    return breadth_first_graph_search(initial_state.board)
