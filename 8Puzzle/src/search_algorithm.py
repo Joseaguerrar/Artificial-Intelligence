@@ -56,6 +56,7 @@ class SearchAlgorithm(ABC):
     with open(file_name, "a", encoding="utf-8") as f:
       if depth is not None:
         f.write(f"time_s={elapsed:.6f}, depth={depth}\n")
+        self.depth_stats.append(depth)
       else:
         f.write(f"time_s={elapsed:.6f}\n")
       f.write(f"memory_KB={current / 1024:.6f}\n")
