@@ -43,3 +43,23 @@ class EightPuzzleSolver(SearchAlgorithm):
       initial_state.generate_solvable_random_state()
       for search_algorithm in self.search_algorithms:
         search_algorithm.run(initial_state)
+    self.write_average_statistics()
+  
+  def write_average_statistics(self):
+    """
+    Write average execution time, memory usage, and depth statistics for each of the registered
+    search algorithms.
+    """
+    file_name = f"{self.__class__.__name__}_results.txt"
+    with open(file_name, "a", encoding="utf-8") as f:
+      for search_algorithm in self.search_algorithms:
+        f.write(
+          f"average_time_s={sum(
+            search_algorithm.elapsed_times) / self.iterations_count:.6f}\n")
+        f.write(
+          f"average_memory_KB={sum(
+            search_algorithm.memory_usage_stats) / self.iterations_count / 1024:.6f}\n")
+        f.write(
+          f"average_depth={sum(
+            search_algorithm.depth_stats) / self.iterations_count:.6f}\n")
+
