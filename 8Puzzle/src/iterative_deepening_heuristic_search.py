@@ -35,7 +35,7 @@ class IterativeDeepeningHeuristicSearch(SearchAlgorithm):
     """
     pass
 
-  def _iterative_deepening_astar_search(problem, h=None):
+  def _iterative_deepening_astar_search(self, problem, h=None):
     """
     Iterative Deepening A* (IDA*): depth-first contours with f = g + h threshold.
 
@@ -58,8 +58,9 @@ class IterativeDeepeningHeuristicSearch(SearchAlgorithm):
       # Expand one contour at a time. In the IDS A* algorithm, a contour is a bounded depth first
       # search that is bounded by an f-cost threshold, where f = g + h (g is the cost so far, and h
       # the heuristic estimate). If no result is found, increase the threshold.
-      next_threshold, result = _ida_contour(problem, start, g=0, threshold=threshold, h=h,
-                                            path_states={start.state})
+      next_threshold, result = self._iterative_deepening_astar_contour(problem, start, g=0,
+                                                                       threshold=threshold, h=h,
+                                                                       path_states={start.state})
       if result is not None:
           break
       # In case an unsolvable initial state is received.
@@ -68,3 +69,6 @@ class IterativeDeepeningHeuristicSearch(SearchAlgorithm):
           break
       threshold = next_threshold
     return result
+  
+  def _iterative_deepening_astar_contour(self, problem, node, g, threshold, h, path_states):
+     
