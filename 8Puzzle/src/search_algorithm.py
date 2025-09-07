@@ -60,7 +60,7 @@ class SearchAlgorithm(ABC):
         f.write(f"time_s={elapsed:.6f}, depth={depth}\n")
       else:
         f.write(f"time_s={elapsed:.6f}\n")
-      f.write(f"memory_KB={current / 1024:.6}\n")
+      f.write(f"memory_KB={current / 1024:.6f}\n")
     return result, elapsed
 
 
