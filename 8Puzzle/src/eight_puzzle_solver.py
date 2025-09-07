@@ -17,7 +17,7 @@ from iterative_deepening_search import IterativeDeepeningSearch
 from iterative_deepening_heuristic_search import IterativeDeepeningHeuristicSearch
 from itertools import repeat
 
-class EightPuzzleSolver(SearchAlgorithm):
+class EightPuzzleSolver():
   """
   Class that represents an 8 puzzle solver.
   """
