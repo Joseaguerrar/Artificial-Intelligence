@@ -34,13 +34,11 @@ class State:
 
   def generate_solvable_random_state(self, steps=1):
     """
-    Generate a random 8Puzzle board state from the goal one.
+    Generate a random 8Puzzle board state from the goal one. Sets board equal to the random 8Puzzle
+    board state.
 
     Args:
       steps (int): Number of iterations in order to randomize.
-
-    Returns:
-      EightPuzzle: A random 8Puzzle state.
     
     Note:
       Generated with the aid of ChatGPT.
@@ -51,7 +49,8 @@ class State:
       while True:
         state = tuple(random.sample(range(9), 9))
         if self.is_solvable(state):
-          return state
+          self.board = EightPuzzle(state)
+          break
   
   def is_solvable(self, state):
     """
