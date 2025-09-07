@@ -10,16 +10,25 @@ Classes:
 """
 
 from search_algorithm import SearchAlgorithm
+from state import State
+from breadth_first_search import BreadthFirstSearch
+from breadth_first_heuristic_search import BreadthFirstHeuristicSearch
+from iterative_deepening_search import IterativeDeepeningSearch
+from iterative_deepening_heuristic_search import IterativeDeepeningHeuristicSearch
 
 class EightPuzzleSolver(SearchAlgorithm):
   """
   Class that represents an 8 puzzle solver.
   """
-  def __init__(self, iterations_count=20):
+  def __init__(self, iterations_count=20, search_algorithms=None):
     """
-    Initialize a EightPuzzleSolver instance
+    Initialize a EightPuzzleSolver instance. If not search algorithms are specified, all search
+    algorithms are used.
     """
     self.iterations_count = iterations_count
+    if search_algorithms is None:
+      self.search_algorithms = [BreadthFirstSearch(), BreadthFirstHeuristicSearch(),
+                                IterativeDeepeningSearch(), IterativeDeepeningHeuristicSearch()]
 
   def run(self):
     """
