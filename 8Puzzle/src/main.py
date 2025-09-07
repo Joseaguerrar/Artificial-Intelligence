@@ -9,7 +9,12 @@ def main():
   Search (IDHS).
   """
   # Read iterations count from the command line.
-  iterations_count = sys.argv[1]
+  try: 
+    iterations_count = int(sys.argv[1]) if len(sys.argv) > 1 else 20
+  except:
+    iterations_count = 20
+
+  print(f"Number of iterations: {iterations_count}\n")
   # Solve the 8 puzzle using the BFS, GBFHS, IDS, IDHS algorithms.
   solver = EightPuzzleSolver(iterations_count)
   solver.run()
