@@ -32,51 +32,37 @@ class State:
     """
     self.board = board
 
-  def generate_solvable_random_state(self, steps=1):
+  def generate_solvable_random_state(self, steps=15):
     """
-    Generate a random 8Puzzle board state from the goal one. Sets board equal to the random 8Puzzle
-    board state.
+    Generate a random 8Puzzle state by performing a random walk of `steps` moves from the goal 
+    state. Guarantees solvability.
 
     Args:
-      steps (int): Number of iterations in order to randomize.
-    
-    Note:
-      Generated with the aid of ChatGPT.
+      steps (int): Number of random moves to apply starting from the goal state.
     """
-    # Create tuples with a random permutation of the numbers 0 - 8, until the created tuple
-    # represents a solvable 8Puzzle.
-    for i in range(steps):
-      while True:
-        state = tuple(random.sample(range(9), 9))
-        if self.is_solvable(state):
-          self.board = EightPuzzle(state)
-          break
-  
-  def is_solvable(self, state):
-    """
-    Determines whether an 8Puzzle initial state is solvable. A solvable 8Puzzle has an even amount
-    of inversions. An inversion occurs when a larger number precedes a smaller number. For example,
-    in the state (1,2,3,4,7,5,6,8,0), there are 2 inversions, because the 7 precedes the 5 and 6.
-    When calculating inversions, the 0 is ignored. Therefore, this initial state is solvable.
+    state = GOAL_STATE
+    last_action = None
 
-    Args:
-      state (tuple): 8Puzzle state, represented as a tuple, whose solvability will be determined.
+    for _ in range(steps):
+      # Create an AIMA problem with the current state (goal).
+      puzzle = EightPuzzle(state)
 
-    Returns:
-      bool: Whether the 8Puzzle state is solvable or not.
-    
-    Note:
-      Generated with the aid of ChatGPT.
-    """
-    # Remove 0 from the current state, and for each number, determine the amount of inversions.
-    # Afterwards, return whether the amount of inversions is even.
-    state_zero_removed = [x for x in state if x != 0]
-    inversions = sum(
-      1 for i in range(
-          len(state_zero_removed)
-        ) for j in range(
-            i+1, len(state_zero_removed)
-          ) if state_zero_removed[i] > state_zero_removed[j]
-    )
-    return inversions % 2 == 0
-    
+      # Ask AIMA for the legal actions (that is moving 0 in any direction).
+      actions = puzzle.actions(state)
+
+      # Avoid last movement immediately if there was one.
+      if last_action:
+        # Basically, we get the opposite move.
+        inverse = {'UP':'DOWN', 'DOWN':'UP', 'LEFT':'RIGHT', 'RIGHT':'LEFT'}
+
+        # And we filter actions to avoid that immediate inverse.
+        # For example, if we moved 0 to the right, we can't move it to the left now, because
+        # that would leave us with the previous state.
+        actions = [a for a in actions if a != inverse[last_action]] or actions
+
+      # Then we choose a random move.
+      action = random.choice(actions)
+      state = puzzle.result(state, action)
+      last_action = action
+
+    self.board = EightPuzzle(state)

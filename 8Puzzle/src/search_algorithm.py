@@ -9,8 +9,10 @@ Classes:
 """
 
 from abc import ABC, abstractmethod
+
 import time
 import tracemalloc
+import os
 
 class SearchAlgorithm(ABC):
   """
@@ -52,8 +54,14 @@ class SearchAlgorithm(ABC):
 
     # Get depth if it exists and add to file. Additionally, add time and memory usage stats.
     depth = getattr(result, "depth", None)
+
+    results_dir = os.path.join("..", "results")
+    os.makedirs(results_dir, exist_ok=True)
+
     file_name = f"{self.__class__.__name__}_results.txt"
-    with open(file_name, "a", encoding="utf-8") as f:
+    file_path = os.path.join(results_dir, file_name)
+
+    with open(file_path, "a", encoding="utf-8") as f:
       if depth is not None:
         f.write(f"time_s={elapsed:.6f}, depth={depth}\n")
         self.depth_stats.append(depth)
