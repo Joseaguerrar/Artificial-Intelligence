@@ -9,6 +9,7 @@ Classes:
   8 puzzle.
 """
 
+
 from search_algorithm import SearchAlgorithm
 from state import State
 from breadth_first_search import BreadthFirstSearch
@@ -16,6 +17,11 @@ from breadth_first_heuristic_search import BreadthFirstHeuristicSearch
 from iterative_deepening_search import IterativeDeepeningSearch
 from iterative_deepening_heuristic_search import IterativeDeepeningHeuristicSearch
 from itertools import repeat
+
+import os
+import shutil
+
+NUMBER_RANDOM_STEPS = 15
 
 class EightPuzzleSolver():
   """
@@ -37,10 +43,19 @@ class EightPuzzleSolver():
     deepening heuristic search algorithms, to solve an 8 puzzle. After each iteration, record and
     write execution time statistics.
     """
+    
+    # Delete previous results files.
+    folder_path = "../results"
+    try:
+      shutil.rmtree(folder_path)
+    except OSError as e:
+      print(f"Error deleting folder '{folder_path}': {e}")
+
     # Repeat is used, because the value of the index doesn't matter.
     for _ in repeat(None, self.iterations_count):
       initial_state = State()
-      initial_state.generate_solvable_random_state()
+      # Generate random state N steps away from goal.
+      initial_state.generate_solvable_random_state(NUMBER_RANDOM_STEPS)
       for search_algorithm in self.search_algorithms:
         search_algorithm.run(initial_state)
     self.write_average_statistics()
@@ -50,9 +65,16 @@ class EightPuzzleSolver():
     Write average execution time, memory usage, and depth statistics for each of the registered
     search algorithms.
     """
+
+    results_dir = os.path.join("..", "results")
+    os.makedirs(results_dir, exist_ok=True)
+
     file_name = f"{self.__class__.__name__}_results.txt"
-    with open(file_name, "a", encoding="utf-8") as f:
+    file_path = os.path.join(results_dir, file_name)
+
+    with open(file_path, "a", encoding="utf-8") as f:
       for search_algorithm in self.search_algorithms:
+        f.write(f"---{search_algorithm.__class__.__name__}---\n")
         f.write(
           f"average_time_s={sum(
             search_algorithm.elapsed_times) / self.iterations_count:.6f}\n")
@@ -62,4 +84,4 @@ class EightPuzzleSolver():
         f.write(
           f"average_depth={sum(
             search_algorithm.depth_stats) / self.iterations_count:.6f}\n")
-
+        f.write("\n")

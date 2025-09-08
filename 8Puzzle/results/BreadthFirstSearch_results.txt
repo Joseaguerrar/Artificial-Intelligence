@@ -1,0 +1,2 @@
+time_s=1.074739, depth=15
+memory_KB=224.875000
