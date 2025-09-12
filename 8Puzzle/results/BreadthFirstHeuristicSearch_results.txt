@@ -1,2 +1,40 @@
-time_s=0.064973, depth=49
-memory_KB=22.367188
+time_s=0.083093, depth=69
+memory_KB=31.117188
+time_s=0.031086, depth=39
+memory_KB=4.539062
+time_s=0.010507, depth=39
+memory_KB=4.539062
+time_s=0.075325, depth=61
+memory_KB=6.945312
+time_s=0.046912, depth=49
+memory_KB=5.632812
+time_s=0.005624, depth=45
+memory_KB=5.195312
+time_s=0.028065, depth=45
+memory_KB=5.195312
+time_s=0.077757, depth=65
+memory_KB=7.382812
+time_s=0.135435, depth=53
+memory_KB=6.070312
+time_s=0.106735, depth=71
+memory_KB=8.039062
+time_s=0.047448, depth=67
+memory_KB=7.601562
+time_s=0.026218, depth=109
+memory_KB=12.195312
+time_s=0.057237, depth=77
+memory_KB=8.695312
+time_s=0.056856, depth=67
+memory_KB=7.601562
+time_s=0.003366, depth=25
+memory_KB=3.007812
+time_s=0.115884, depth=97
+memory_KB=16.679688
+time_s=0.052853, depth=37
+memory_KB=4.320312
+time_s=0.081559, depth=55
+memory_KB=6.289062
+time_s=0.083181, depth=57
+memory_KB=6.507812
+time_s=0.118507, depth=69
+memory_KB=7.820312
