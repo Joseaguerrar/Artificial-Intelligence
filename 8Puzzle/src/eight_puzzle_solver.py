@@ -74,14 +74,12 @@ class EightPuzzleSolver():
 
     with open(file_path, "a", encoding="utf-8") as f:
       for search_algorithm in self.search_algorithms:
-        f.write(f"---{search_algorithm.__class__.__name__}---\n")
-        f.write(
-          f"average_time_s={sum(
-            search_algorithm.elapsed_times) / self.iterations_count:.6f}\n")
-        f.write(
-          f"average_memory_KB={sum(
-            search_algorithm.memory_usage_stats) / self.iterations_count / 1024:.6f}\n")
-        f.write(
-          f"average_depth={sum(
-            search_algorithm.depth_stats) / self.iterations_count:.6f}\n")
-        f.write("\n")
+          avg_time = sum(search_algorithm.elapsed_times) / self.iterations_count
+          avg_memory = sum(search_algorithm.memory_usage_stats) / self.iterations_count / 1024
+          avg_depth = sum(search_algorithm.depth_stats) / self.iterations_count
+
+          f.write(f"---{search_algorithm.__class__.__name__}---\n")
+          f.write(f"average_time_s={avg_time:.6f}\n")
+          f.write(f"average_memory_KB={avg_memory:.6f}\n")
+          f.write(f"average_depth={avg_depth:.6f}\n")
+          f.write("\n")
