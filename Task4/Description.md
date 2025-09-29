@@ -28,3 +28,5 @@ The main purpose is to practice knowledge representation and reasoning in Prolog
 - Jerson Bonilla Fernández: C31225
 
 - Jose Raúl Martínez Quesada: C34637
+
+ prueba de push
