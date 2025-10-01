@@ -107,3 +107,19 @@ vegetariano(Plato) :-
 vegano(Plato) :-
     plato(Plato, Ingredientes),
     \+ (member(I, Ingredientes), origen_animal(I)).
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% RESTRICCIONES: ALÉRGICOS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Un cliente no puede comer un plato si este contiene su alergeno
+no_puede_comer(Cliente, Plato) :-
+    alergico(Cliente, Ing),
+    plato(Plato, Ingredientes),
+    member(Ing, Ingredientes).
+
+% Un cliente puede comer un plato si existe y no tiene ingredientes a los que es alérgico
+puede_comer(Cliente, Plato) :-
+    plato(Plato, _),
+    \+ no_puede_comer(Cliente, Plato).
