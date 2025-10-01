@@ -30,3 +30,8 @@ ingredientes(especial(Base, Acompanamiento), Ingredientes) :-
     bases_principales(Base),
     acompanamientos(Acompanamiento),
     Ingredientes = [Base, cebolla, sal, vinagre, Acompanamiento].
+
+% Verificar si un plato tiene un ingrediente específico
+tiene_ingrediente(Plato, Ingrediente) :-
+    ingredientes(Plato, Lista),
+    member(Ingrediente, Lista).
