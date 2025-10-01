@@ -98,3 +98,12 @@ plato(especial(Principal, Acompanamiento),
 vegetariano(Plato) :-
     plato(Plato, Ingredientes),
     \+ (member(Ingrediente, Ingredientes), carne(Ingrediente)).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% RESTRICCIONES: VEGANOS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Un plato es vegano si ninguno de sus ingredientes es de origen animal
+vegano(Plato) :-
+    plato(Plato, Ingredientes),
+    \+ (member(I, Ingredientes), origen_animal(I)).
