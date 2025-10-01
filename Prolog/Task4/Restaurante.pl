@@ -166,3 +166,33 @@ puede_comer(Cliente, Plato) :-
     cliente(Cliente),
     plato(Plato, Ingredientes),
     cumple_restricciones(Cliente, Plato, Ingredientes).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% EVALUACIÓN DE RESTRICCIONES
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Caso 1: Si el cliente es vegano
+cumple_restricciones(Cliente, Plato, Ingredientes) :-
+    caracteristica(Cliente, vegano),
+    vegano(Plato).
+
+% Caso 2: Si el cliente es vegetariano
+cumple_restricciones(Cliente, Plato, Ingredientes) :-
+    caracteristica(Cliente, vegetariano),
+    vegetariano(Plato).
+
+% Caso 3: Si el cliente es omnívoro (puede comer de todo, excepto sus alergias si las tiene)
+cumple_restricciones(Cliente, _, Ingredientes) :-
+    caracteristica(Cliente, omnivoro),
+    \+ (alergico(Cliente, Ing), member(Ing, Ingredientes)).
+
+% Caso 4: Si el cliente tiene alergias
+cumple_restricciones(Cliente, _, Ingredientes) :-
+    \+ (alergico(Cliente, Ing), member(Ing, Ingredientes)).
+
+% Caso 5: Restricción específica: Luis no come pasta
+cumple_restricciones(luis, _, Ingredientes) :-
+    \+ member(pasta, Ingredientes).
+
+% Caso 6: Cliente sin restricciones explícitas (default: puede)
+cumple_restricciones(_, _, _).
