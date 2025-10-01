@@ -1,43 +1,32 @@
-% Sistema Experto de Restaurante - Versión Básica en Español
+% Sistema de consultas para saloneros de restaurante
 
 % --- Platos simples ---
 plato(pasta).
-plato(ensalada).
-plato(pizza).
-plato(sopa).
+plato(hongos_al_horno).
+plato(ensalada_cesar).
+plato(helado).
 
-% --- Ingredientes por plato ---
-ingredientes(pasta, [pasta, tomate, queso]).
-ingredientes(ensalada, [lechuga, tomate, aceite]).
-ingredientes(pizza, [masa, queso, tomate, carne]).
-ingredientes(sopa, [verduras, agua, sal]).
+% --- Ingredientes de platos simples ---
+ingredientes(pasta, [pasta, oregano, tomate, aceite, sal]).
+ingredientes(hongos_al_horno, [hongos, queso, mantequilla, sal]).
+ingredientes(ensalada_cesar, [lechuga, tomate, sal, vinagre]).
+ingredientes(helado, [miel, leche, fresas]).
 
-% --- Clientes con restricciones ---
-vegetariano(carlos).
-alergico(maria, queso).
-normal(juan).  % sin restricciones
+% --- Platos especiales ---
 
-% --- Reglas simples ---
-% Verificar si un plato tiene un ingrediente específico
-tiene_ingrediente(Plato, Ingrediente) :-
-    ingredientes(Plato, Lista),
-    member(Ingrediente, Lista).
+% Un plato especial es combinación de una base y un acompañamiento
+plato(especial(Base, Acompanamiento)) :-
+    bases_principales(Base),
+    acompanamientos(Acompanamiento).
 
-% Regla simple: vegetarianos no pueden comer platos con carne
-puede_comer(Cliente, Plato) :-
-    vegetariano(Cliente),
-    \+ tiene_ingrediente(Plato, carne).
+% Posibles bases principales
+bases_principales([pollo, lomito, pescado, atun, hongos]).
 
-% Regla simple: personas con alergias no pueden comer platos con su alérgeno
-puede_comer(Cliente, Plato) :-
-    alergico(Cliente, Alergeno),
-    \+ tiene_ingrediente(Plato, Alergeno).
+% Posibles acompañamientos
+acompanamientos([papa, hongos, zucchini, arroz]).
 
-% Personas normales pueden comer cualquier cosa
-puede_comer(Cliente, _) :-
-    normal(Cliente).
-
-% Recomendar platos que un cliente puede comer
-recomendar(Cliente, Plato) :-
-    plato(Plato),
-    puede_comer(Cliente, Plato).
+% Ingredientes de un plato especial
+ingredientes(especial(Base, Acompanamiento), Ingredientes) :-
+    bases_principales(Base),
+    acompanamientos(Acompanamiento),
+    Ingredientes = [Base, cebolla, sal, vinagre, Acompanamiento].
