@@ -1,55 +1,90 @@
+% =======================================
 % Sistema de consultas para saloneros de restaurante
-
-% --- Platos simples ---
-plato(pasta).
-plato(hongos_al_horno).
-plato(ensalada_cesar).
-plato(helado).
-
-% --- Ingredientes de platos simples ---
-ingredientes(pasta, [pasta, oregano, tomate, aceite, sal]).
-ingredientes(hongos_al_horno, [hongos, queso, mantequilla, sal]).
-ingredientes(ensalada_cesar, [lechuga, tomate, sal, vinagre]).
-ingredientes(helado, [miel, leche, fresas]).
-
-% --- Platos especiales ---
-
-% Un plato especial es combinación de una base y un acompañamiento
-plato(especial(Base, Acompanamiento)) :-
-    bases_principales(Base),
-    acompanamientos(Acompanamiento).
-
-% Posibles bases principales
-bases_principales([pollo, lomito, pescado, atun, hongos]).
-
-% Posibles acompañamientos
-acompanamientos([papa, hongos, zucchini, arroz]).
-
-% Ingredientes de un plato especial
-ingredientes(especial(Base, Acompanamiento), Ingredientes) :-
-    bases_principales(Base),
-    acompanamientos(Acompanamiento),
-    Ingredientes = [Base, cebolla, sal, vinagre, Acompanamiento].
-
-% Verificar si un plato tiene un ingrediente específico
-tiene_ingrediente(Plato, Ingrediente) :-
-    ingredientes(Plato, Lista),
-    member(Ingrediente, Lista).
-
-% =======================================
-% Reglas para vegetarianos
 % =======================================
 
-% Ingredientes considerados carne
-carnes([lomito, pollo, pescado, atun]).
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% INGREDIENTES
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% Verificar si un plato contiene carne
-contiene_carne(Plato) :-
-    tiene_ingrediente(Plato, Ing),
-    carnes(Carnes),
-    member(Ing, Carnes).
+% Ingredientes del restaurante
+ingrediente(lomito).
+ingrediente(pollo).
+ingrediente(pescado).
+ingrediente(leche).
+ingrediente(mantequilla).
+ingrediente(arroz).
+ingrediente(frijoles).
+ingrediente(pasta).
+ingrediente(tomate).
+ingrediente(lechuga).
+ingrediente(huevo).
+ingrediente(miel).
+ingrediente(chile).
+ingrediente(maiz).
+ingrediente(zucchini).
+ingrediente(hongos).
+ingrediente(cebolla).
+ingrediente(sal).
+ingrediente(queso).
+ingrediente(repollo).
+ingrediente(oregano).
+ingrediente(apio).
+ingrediente(remolacha).
+ingrediente(atun).
+ingrediente(papa).
+ingrediente(aceite).
+ingrediente(tofu).
+ingrediente(leche_de_almendra).
+ingrediente(cafe).
+ingrediente(chocolate).
+ingrediente(agua).
+ingrediente(vinagre).
+ingrediente(fresas).
 
-% Vegetarianos: no comen platos que contengan carne
-puede_comer_vegetariano(Cliente, Plato) :-
-    vegetariano(Cliente),
-    \+ contiene_carne(Plato).
+% Clasificación de carnes
+carne(lomito).
+carne(pollo).
+carne(pescado).
+carne(atun).
+
+% Productos de origen animal
+origen_animal(lomito).
+origen_animal(pollo).
+origen_animal(pescado).
+origen_animal(leche).
+origen_animal(mantequilla).
+origen_animal(huevo).
+origen_animal(miel).
+origen_animal(queso).
+origen_animal(atun).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% PLATOS BÁSICOS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+plato(pasta_basica, [pasta, oregano, tomate, aceite, sal]).
+plato(hongos_al_horno, [hongos, queso, mantequilla, sal]).
+plato(ensalada_cesar, [lechuga, tomate, sal, vinagre]).
+plato(helado, [miel, leche, fresas]).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% PLATOS ESPECIALES
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Un plato especial = carne principal + acompañamiento
+principal(pollo).
+principal(lomito).
+principal(pescado).
+principal(atun).
+principal(hongos).
+
+acompanamiento(papa).
+acompanamiento(hongos).
+acompanamiento(zucchini).
+acompanamiento(arroz).
+
+% Definición de platos especiales: se generan combinando
+plato(especial(Principal, Acompanamiento),
+      [Principal, cebolla, sal, vinagre, Acompanamiento]) :-
+    principal(Principal),
+    acompanamiento(Acompanamiento).
