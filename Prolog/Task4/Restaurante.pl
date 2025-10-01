@@ -88,3 +88,13 @@ plato(especial(Principal, Acompanamiento),
       [Principal, cebolla, sal, vinagre, Acompanamiento]) :-
     principal(Principal),
     acompanamiento(Acompanamiento).
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% RESTRICCIONES: VEGETARIANOS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Un plato es vegetariano si ninguno de sus ingredientes es carne
+vegetariano(Plato) :-
+    plato(Plato, Ingredientes),
+    \+ (member(Ingrediente, Ingredientes), carne(Ingrediente)).
