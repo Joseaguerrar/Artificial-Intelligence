@@ -123,3 +123,46 @@ no_puede_comer(Cliente, Plato) :-
 puede_comer(Cliente, Plato) :-
     plato(Plato, _),
     \+ no_puede_comer(Cliente, Plato).
+
+    
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% CLIENTES Y SUS RESTRICCIONES
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Declaración de clientes
+cliente(israel).
+cliente(carlos).
+cliente(angie).
+cliente(chiqui).
+cliente(luis).
+cliente(emilia).
+
+% Israel es alérgico a los hongos
+alergico(israel, hongos).
+
+% Carlos es vegetariano (no come carne)
+caracteristica(carlos, vegetariano).
+
+% Angie es vegana (no consume nada de origen animal)
+caracteristica(angie, vegano).
+
+% Chiqui es omnívoro (come de todo)
+caracteristica(chiqui, omnivoro).
+
+% Luis no come pasta
+no_come(luis, pasta).
+
+% Emilia es intolerante a los lácteos
+alergico(emilia, leche).
+alergico(emilia, mantequilla).
+alergico(emilia, queso).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% CONSULTA GENERAL DE CLIENTES
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Regla principal: un cliente puede comer un plato si cumple todas sus restricciones
+puede_comer(Cliente, Plato) :-
+    cliente(Cliente),
+    plato(Plato, Ingredientes),
+    cumple_restricciones(Cliente, Plato, Ingredientes).
