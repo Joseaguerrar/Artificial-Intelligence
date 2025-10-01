@@ -35,3 +35,21 @@ ingredientes(especial(Base, Acompanamiento), Ingredientes) :-
 tiene_ingrediente(Plato, Ingrediente) :-
     ingredientes(Plato, Lista),
     member(Ingrediente, Lista).
+
+% =======================================
+% Reglas para vegetarianos
+% =======================================
+
+% Ingredientes considerados carne
+carnes([lomito, pollo, pescado, atun]).
+
+% Verificar si un plato contiene carne
+contiene_carne(Plato) :-
+    tiene_ingrediente(Plato, Ing),
+    carnes(Carnes),
+    member(Ing, Carnes).
+
+% Vegetarianos: no comen platos que contengan carne
+puede_comer_vegetariano(Cliente, Plato) :-
+    vegetariano(Cliente),
+    \+ contiene_carne(Plato).
