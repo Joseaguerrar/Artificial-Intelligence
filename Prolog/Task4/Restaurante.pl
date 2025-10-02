@@ -118,7 +118,7 @@ no_puede_comer(Cliente, Plato) :-
     alergico(Cliente, Ing),
     plato(Plato, Ingredientes),
     member(Ing, Ingredientes).
-     
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% CLIENTES Y SUS RESTRICCIONES
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -155,11 +155,25 @@ alergico(emilia, queso).
 %% CONSULTA GENERAL DE CLIENTES
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% Regla principal: un cliente puede comer un plato si cumple todas sus restricciones
+% Caso especial: los caníbales
 puede_comer(Cliente, Plato) :-
-    cliente(Cliente),
+    caracteristica(Cliente, canibal),
     plato(Plato, Ingredientes),
-    cumple_restricciones(Cliente, Plato, Ingredientes).
+    % Puede comer cualquier plato definido, incluyendo los de gato
+    \+ (alergico(Cliente, Ing), member(Ing, Ingredientes)),
+    \+ (Cliente = luis, member(pasta, Ingredientes)).
+
+% Caso general: todos los demás clientes
+puede_comer(Cliente, Plato) :-
+    plato(Plato, Ingredientes),
+    % Veganos solo comen platos veganos
+    \+ (caracteristica(Cliente, vegano), \+ vegano(Plato)),
+    % Vegetarianos solo comen platos vegetarianos
+    \+ (caracteristica(Cliente, vegetariano), \+ vegetariano(Plato)),
+    % Nadie puede comer lo que le da alergia
+    \+ (alergico(Cliente, Ing), member(Ing, Ingredientes)),
+    % Luis no come pasta
+    \+ (Cliente = luis, member(pasta, Ingredientes)).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% EVALUACIÓN DE RESTRICCIONES
@@ -188,5 +202,12 @@ cumple_restricciones(Cliente, _, Ingredientes) :-
 cumple_restricciones(luis, _, Ingredientes) :-
     \+ member(pasta, Ingredientes).
 
-% Caso 6: Cliente sin restricciones explícitas (default: puede)
-cumple_restricciones(_, _, _).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Nuevo cliente canibal
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+cliente(fidel).
+caracteristica(fidel, canibal).
+carne(gato).
+origen_animal(gato).
+plato(especial(gato, arroz), [gato, cebolla, sal, vinagre, arroz]).
