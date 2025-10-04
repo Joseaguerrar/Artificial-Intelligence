@@ -118,6 +118,10 @@ hermanxtotal(X, Y) :- papa(Z, X), papa(Z, Y) , mama(A, X), mama(A, Y).
 % X es medio hermano o media hermana de Y (son hermanos pero no totales)
 mediohermanx(X, Y) :- hermanx(X, Y), \+ hermanxtotal(X,Y).
 
+%%%%%%% Primos %%%%%%%
+% X es primo o prima de Y (el papá o mamá de X es hermanx del papá o mamá de Y)
+primx(X, Y) :- (pom(Z, X), hermanx(Z, W), pom(W, Y)).
+
 %%%%%%% Abuelos %%%%%%%
 % X es abuelo de Y (X es pom de Z y Z es pom de Y)
 abuelx(X, Y) :- pom(X, Z), pom(Z, Y).
