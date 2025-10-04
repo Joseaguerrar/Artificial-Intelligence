@@ -132,6 +132,12 @@ primo(X, Y) :- primx(X, Y), hombre(X).
 % X es tío o tía de Y (X es hermanx de Z y Z es pom de Y)
 tix(X, Y) :- (hermanx(X, Z), pom(Z, Y)).
 
+% X es tía de Y (X es tix de Y, y X es mujer)
+tia(X, Y) :- tix(X, Y), mujer(X).
+
+% X es tío de Y (X es tix de Y, y X es hombre)
+tio(X, Y) :- tix(X, Y), hombre(X).
+
 %%%%%%% Abuelos %%%%%%%
 % X es abuelo de Y (X es pom de Z y Z es pom de Y)
 abuelx(X, Y) :- pom(X, Z), pom(Z, Y).
