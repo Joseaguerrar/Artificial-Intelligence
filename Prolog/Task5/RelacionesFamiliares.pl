@@ -178,6 +178,16 @@ bisabuela(X, Y) :- bisabuelx(X, Y), mujer(X).
 % X es bisabuelo de Y si X es bisabuelx y es hombre.
 bisabuelo(X, Y) :- bisabuelx(X, Y), hombre(X).
 
+%%%%%%% Suegros %%%%%%%
+% X es suegro o suegra de Y (X es pom de Z y Z es pareja de Y)
+suegrx(X, Y) :- pom(X, Z), pareja(Z, Y).
+
+% X es suegra de Y si X es suegrx y es mujer.
+suegra(X, Y) :- suegrx(X, Y), mujer(X).
+
+% X es suegro de Y si X es suegrx y es hombre.
+suegro(X, Y) :- suegrx(X, Y), hombre(X).
+
 %%%%%%% Reglas auxilares %%%%%%%
 
 % X es pareja de Y: suponemos que dos personas son pareja si comparten al menos un/a hijx
