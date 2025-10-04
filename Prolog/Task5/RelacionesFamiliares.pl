@@ -122,7 +122,6 @@ abuelx(X, Y) :- pom(X, Z), pom(Z, Y).
 % X es pareja de Y: suponemos que dos personas son pareja si comparten al menos un/a hijx
 pareja(X, Y) :- pom(X, Z), pom(Y, Z), X \= Y.
 
-
 % H es Hijo/Hija de P si P es pom de H.
 hijx(H, P) :- pom(P, H).
 
