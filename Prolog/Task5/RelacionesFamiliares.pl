@@ -168,6 +168,16 @@ abuelo(X, Y) :- abuelx(X, Y), hombre(X).
 % X es abuela de Y si es abuelo o abuela y es mujer.
 abuela(X, Y) :- abuelx(X, Y), mujer(X).
 
+%%%%%%% Bisabuelos %%%%%%%
+% X es bisabuelo o bisabuela de Y (X es abuelx de Z y Z es pom de Y)
+bisabuelx(X, Y) :- abuelx(X, Z), pom(Z, Y).
+
+% X es bisabuela de Y si X es bisabuelx y es mujer.
+bisabuela(X, Y) :- bisabuelx(X, Y), mujer(X).
+
+% X es bisabuelo de Y si X es bisabuelx y es hombre.
+bisabuelo(X, Y) :- bisabuelx(X, Y), hombre(X).
+
 %%%%%%% Reglas auxilares %%%%%%%
 
 % X es pareja de Y: suponemos que dos personas son pareja si comparten al menos un/a hijx
