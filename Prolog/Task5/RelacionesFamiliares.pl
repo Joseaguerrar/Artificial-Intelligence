@@ -148,6 +148,16 @@ tia(X, Y) :- tix(X, Y), mujer(X).
 % X es tío de Y (X es tix de Y, y X es hombre)
 tio(X, Y) :- tix(X, Y), hombre(X).
 
+%%%%%% Sobrinos %%%%%%%
+% X es sobrino o sobrina de Y (Y es tix de X)
+sobrinx(X, Y) :- tix(Y, X).
+
+% X es sobrina de Y si Y es tix de X, y X es mujer
+sobrina(X, Y) :- sobrinx(X, Y), mujer(X).
+
+% X es sobrino de Y si Y es tix de X, y X es hombre
+sobrino(X, Y) :- sobrinx(X, Y), hombre(X).
+
 %%%%%%% Abuelos %%%%%%%
 % X es abuelo de Y (X es pom de Z y Z es pom de Y)
 abuelx(X, Y) :- pom(X, Z), pom(Z, Y).
