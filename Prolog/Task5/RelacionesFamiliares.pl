@@ -122,6 +122,10 @@ mediohermanx(X, Y) :- hermanx(X, Y), \+ hermanxtotal(X,Y).
 % X es primo o prima de Y (el papá o mamá de X es hermanx del papá o mamá de Y)
 primx(X, Y) :- (pom(Z, X), hermanx(Z, W), pom(W, Y)).
 
+%%%%%%% Tíos %%%%%%%
+% X es tío o tía de Y (X es hermanx de Z y Z es pom de Y)
+tix(X, Y) :- (hermanx(X, Z), pom(Z, Y)).
+
 %%%%%%% Abuelos %%%%%%%
 % X es abuelo de Y (X es pom de Z y Z es pom de Y)
 abuelx(X, Y) :- pom(X, Z), pom(Z, Y).
