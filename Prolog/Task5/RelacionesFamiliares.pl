@@ -135,4 +135,17 @@ abuelo(X, Y) :- abuelx(X, Y), hombre(X).
 % X es abuela de Y si es abuelo o abuela y es mujer.
 abuela(X, Y) :- abuelx(X, Y), mujer(X).
 
+%%%%%%% Cuñadx (que tenga hijxs)%%%%%%%
+% 1. Hermanx de la pareja
+% 2. Pareja de hermanox
 
+% X es cuñadx de Y si Y es pareja de Z y X es hermano de Z
+% o si X es pareja de Z y Z es hermanx de Y.
+cunnadx(X, Y) :- (pareja(Y, Z), hermanx(X, Z));
+    (hermanx(Z, Y), pareja(X, Z)).
+
+% X es cuñado de Y si es cuñado o cuñada y es hombre.
+cunnado(X, Y) :- cunnadx(X, Y), hombre(X).
+
+% X es cuñado de Y si es cuñado o cuñada y es mujer.
+cunnada(X, Y) :- cunnadx(X, Y), mujer(X).
