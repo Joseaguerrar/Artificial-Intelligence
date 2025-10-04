@@ -120,13 +120,23 @@ mediohermanx(X, Y) :- hermanx(X, Y), \+ hermanxtotal(X,Y).
 
 %%%%%%% Primos %%%%%%%
 % X es primo o prima de Y (el papá o mamá de X es hermanx del papá o mamá de Y)
-primx(X, Y) :- (pom(Z, X), hermanx(Z, W), pom(W, Y)).
+primx(X, Y) :- (pom(Z, X), hermanx(Z, W), pom(W, Y)), X \= Y.
 
 % X es prima de Y (son primos y X es mujer)
 prima(X, Y) :- primx(X, Y), mujer(X).
 
 % X es primo de Y (son primos y X es hombre)
 primo(X, Y) :- primx(X, Y), hombre(X).
+
+%%%%%%% Primos segundos %%%%%%%
+% X es primo o prima segunda de Y si los progenitores de ambos son primos
+primx_segundo(X, Y) :- pom(Z, X), pom(W, Y), primx(Z, W), X \= Y.
+
+% X es primo segundo de Y (son primos segundos y X es hombre)
+primo_segundo(X, Y) :- primx_segundo(X, Y), hombre(X).
+
+% X es prima segunda de Y (son primos segundos y X es mujer)
+prima_segunda(X, Y) :- primx_segundo(X, Y), mujer(X).
 
 %%%%%%% Tíos %%%%%%%
 % X es tío o tía de Y (X es hermanx de Z y Z es pom de Y)
@@ -156,8 +166,24 @@ pareja(X, Y) :- pom(X, Z), pom(Y, Z), X \= Y.
 % H es Hijo/Hija de P si P es pom de H.
 hijx(H, P) :- pom(P, H).
 
-% tiene_hijxs: cierta persona tiene al menos un/a hijx (se ocupa para cuñadx)
+% Tiene_hijxs: cierta persona tiene al menos un/a hijx (se ocupa para cuñadx)
 tiene_hijxs(X) :- pom(X, _).
+
+%%%%%%% Tíos políticos %%%%%%%
+% 1. Pareja de un tío o tía.
+% 2. Hermanx de la pareja de un progenitor
+
+% X es tíx político de Y si X es la pareja de Z y
+% Z es tío o tía de Y. También si P es progenitor
+% de Y, P es pareja de S, y X y S son hermanos.
+tix_politico(X, Y) :- (pareja(X, Z), tix(Z, Y));  
+    (pom(P, Y), pareja(P, S), hermanx(X, S)).
+
+% Tío político
+tio_politico(X, Y)  :- tix_politico(X, Y), hombre(X).
+
+% Tía política
+tia_politica(X, Y)  :- tix_politico(X, Y), mujer(X).
 
 %%%%%%% Cuñadx (que tenga hijxs)%%%%%%%
 % 1. Hermanx de la pareja
@@ -165,11 +191,12 @@ tiene_hijxs(X) :- pom(X, _).
 
 % X es cuñadx de Y si Y es pareja de Z y X es hermano de Z
 % o si X es pareja de Z y Z es hermanx de Y.
-cunhadx(X, Y) :- (pareja(Y, Z), hermanx(X, Z));
-    (hermanx(Z, Y), pareja(X, Z)).
+cunhadx(X, Y) :- ((pareja(Y, Z), hermanx(X, Z));
+    (hermanx(Z, Y), pareja(X, Z))),
+    tiene_hijxs(X).
 
 % X es cuñado de Y si es cuñado o cuñada y es hombre.
 cunhado(X, Y) :- cunhadx(X, Y), hombre(X).
 
 % X es cuñado de Y si es cuñado o cuñada y es mujer.
-cunhado(X, Y) :- cunhadx(X, Y), mujer(X).
+cunhada(X, Y) :- cunhadx(X, Y), mujer(X).
