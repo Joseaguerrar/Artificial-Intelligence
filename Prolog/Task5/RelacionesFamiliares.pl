@@ -117,7 +117,7 @@ hermana(X, Y) :- hermanx(X, Y), mujer(X).
 
 %%%%%%% Hermanos totales %%%%%%%
 % X es hermano o hermana total de Y (comparten papá y mamá)
-hermanxtotal(X, Y) :- papa(Z, X), papa(Z, Y) , mama(A, X), mama(A, Y).
+hermanxtotal(X, Y) :- papa(Z, X), papa(Z, Y), mama(A, X), mama(A, Y), X \= Y.
 
 %%%%%%% Medio hermanos %%%%%%%
 % X es medio hermano o media hermana de Y (son hermanos pero no totales)
