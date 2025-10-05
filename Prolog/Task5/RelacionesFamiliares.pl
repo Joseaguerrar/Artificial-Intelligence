@@ -212,7 +212,7 @@ tiene_hijxs(X) :- pom(X, _).
 % Z es tío o tía de Y. También si P es progenitor
 % de Y, P es pareja de S, y X y S son hermanos.
 tix_politico(X, Y) :- (pareja(X, Z), tix(Z, Y));  
-    (pom(P, Y), pareja(P, S), hermanx(X, S)).
+    (pom(P, Y), pareja(P, S), \+ pom(S, Y), hermanx(X, S)).
 
 % Tío político
 tio_politico(X, Y)  :- tix_politico(X, Y), hombre(X).
