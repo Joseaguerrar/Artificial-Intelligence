@@ -2,7 +2,7 @@
 
 - José Guerra Rodríguez: C33510
 - Jerson Bonilla Fernández: C31225
-- Jose Raúl Martínez Quesada: C34637
+- José Raúl Martínez Quesada: C34637
 
 # Guía de Consultas
 
