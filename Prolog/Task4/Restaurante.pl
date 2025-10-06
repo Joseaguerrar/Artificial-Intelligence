@@ -2,6 +2,14 @@
 % Sistema de consultas para saloneros de restaurante
 % =======================================
 
+% Para suprimir warnings de definición discontinua de predicados.
+:- discontiguous plato/2.
+:- discontiguous alergico/2.
+:- discontiguous cliente/1.
+:- discontiguous caracteristica/2.
+:- discontiguous carne/1.
+:- discontiguous origen_animal/1.
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% INGREDIENTES
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -180,12 +188,12 @@ puede_comer(Cliente, Plato) :-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Caso 1: Si el cliente es vegano
-cumple_restricciones(Cliente, Plato, Ingredientes) :-
+cumple_restricciones(Cliente, Plato, _) :-
     caracteristica(Cliente, vegano),
     vegano(Plato).
 
 % Caso 2: Si el cliente es vegetariano
-cumple_restricciones(Cliente, Plato, Ingredientes) :-
+cumple_restricciones(Cliente, Plato, _) :-
     caracteristica(Cliente, vegetariano),
     vegetariano(Plato).
 
